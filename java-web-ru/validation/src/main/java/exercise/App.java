@@ -53,7 +53,6 @@ public final class App {
                 ctx.redirect("/articles");
             } catch (ValidationException e) {
                 var page = new BuildArticlePage(title, content, e.getErrors());
-                app.exception(ValidationException.class, (e, ctx -> {}));
                 ctx.render("articles/build.jte", model("page", page));
             }
         });
