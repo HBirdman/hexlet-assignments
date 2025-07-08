@@ -23,8 +23,8 @@ public class Application {
                 }
 
                 System.out.println("Method " + method.getName()
-                        + " return a value of type "
-                        + method.getAnnotatedReturnType());
+                        + " returns a value of type "
+                        + method.getAnnotation(Inspect.class).returnType());
             }
         }
         // END
