@@ -1,5 +1,6 @@
 package exercise.controller;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
@@ -83,6 +84,11 @@ class TaskControllerTest {
         testTask2.setDescription("test description");
     }
 
+    @AfterEach
+    public void closing() {
+        taskRepository.deleteAll();
+    }
+
     @Test
     public void testShow() throws Exception {
         mockMvc.perform(get("/tasks/{id}", testTask.getId()))
@@ -94,7 +100,7 @@ class TaskControllerTest {
     public void create() throws Exception {
         var request = post("/tasks")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(testTask2));
+                .content(om.writeValueAsString(testTask));
 
         mockMvc.perform(request)
                 .andExpect(status().isCreated());
